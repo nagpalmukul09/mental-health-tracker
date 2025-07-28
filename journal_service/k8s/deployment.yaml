@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journal-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: journal-service
+  template:
+    metadata:
+      labels:
+        app: journal-service
+    spec:
+      containers:
+        - name: journal-container
+          image: gcr.io/mental-health-tracker-466501/journal-service
+          ports:
+            - containerPort: 8003
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: journal-service-config
+                  key: APP_NAME
+            - name: JOURNAL_DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: journal-service-config
+                  key: JOURNAL_DB_HOST
+            - name: JOURNAL_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: journal-service-secret
+                  key: JOURNAL_DB_PASSWORD
+

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mood-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mood-service
+  template:
+    metadata:
+      labels:
+        app: mood-service
+    spec:
+      containers:
+        - name: mood-container
+          image: gcr.io/mental-health-tracker-466501/mood-service
+          ports:
+            - containerPort: 8002
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mood-service-config
+                  key: APP_NAME
+            - name: MOOD_SERVICE_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                   name: mood-service-config
+                   key: MOOD_SERVICE_LOG_LEVEL
+            - name: MOOD_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mood-service-secret
+                  key: MOOD_API_TOKEN
+

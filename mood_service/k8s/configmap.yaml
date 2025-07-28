@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mood-service-config
+data:
+  APP_NAME: "Mood Service"
+  MOOD_SERVICE_LOG_LEVEL: "DEBUG"

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-container
+          image: gcr.io/mental-health-tracker-466501/user-service:v2
+          ports:
+            - containerPort: 8001
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config
+                  key: APP_NAME
+            - name: USER_SERVICE_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: user-service-config
+                  key: USER_SERVICE_LOG_LEVEL
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-secret
+                  key: API_KEY
+

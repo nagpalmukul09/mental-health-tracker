@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: recommendation-service
+  template:
+    metadata:
+      labels:
+        app: recommendation-service
+    spec:
+      containers:
+        - name: recommendation-container
+          image: gcr.io/mental-health-tracker-466501/recommendation-service
+          ports:
+            - containerPort: 8004
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: recommendation-service-config
+                  key: APP_NAME
+            - name: RECOMMENDATION_MODEL_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: recommendation-service-config
+                  key: RECOMMENDATION_MODEL_PATH
+            - name: MODEL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: recommendation-service-secret
+                  key: MODEL_API_KEY
+

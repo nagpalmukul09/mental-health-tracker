@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: journal-service-config
+data:
+  APP_NAME: "Journal Service"
+  JOURNAL_DB_HOST: "localhost"

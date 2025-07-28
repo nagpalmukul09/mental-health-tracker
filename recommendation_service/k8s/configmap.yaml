@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recommendation-service-config
+data:
+  APP_NAME: recommendation-service
+  RECOMMENDATION_MODEL_PATH: /models/latest_model.pkl
