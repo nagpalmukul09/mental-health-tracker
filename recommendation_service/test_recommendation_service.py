@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from main import app
+from recommendation_service.main import app
 
 client = TestClient(app)
 
