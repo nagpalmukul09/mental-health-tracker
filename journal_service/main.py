@@ -23,3 +23,7 @@ def add_entry(entry: JournalEntry):
 @app.get("/journal/{user_id}")
 def get_entries(user_id: str):
     return journal_entries.get(user_id, [])
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}

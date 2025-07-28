@@ -21,3 +21,7 @@ def send_notification(note: Notification):
 @app.get("/notifications")
 def list_notifications():
     return notifications
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}

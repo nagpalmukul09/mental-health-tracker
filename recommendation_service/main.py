@@ -15,3 +15,7 @@ def get_recommendation(mood_level: int):
         return {"tip": "You're doing okay! Take a moment to journal your thoughts."}
     else:
         return {"tip": "Keep up the good vibes! Maybe help a friend feel better too."}
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
